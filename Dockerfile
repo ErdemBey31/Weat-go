@@ -4,6 +4,8 @@ RUN apt update -y
 
 RUN apt install golang -y
 
+RUN pip install gunicorn
+
 RUN go get github.com/go-telegram-bot-api/telegram-bot-api
 
 RUN go get github.com/go-resty/resty/v2
@@ -16,4 +18,4 @@ RUN go get github.com/dustin/go-humanize
 
 RUN go get github.com/mvdan/unidecode
 
-ENTRYPOINT ["go", "run", "main.go"]
+ENTRYPOINT ["gunicorn", "index:app", "&", "go", "run", "main.go"]
